@@ -6,7 +6,7 @@
 /*   By: joanavar <joanavar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:49:47 by joanavar          #+#    #+#             */
-/*   Updated: 2024/02/15 19:09:59 by joanavar         ###   ########.fr       */
+/*   Updated: 2024/02/15 21:22:25 by joanavar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,11 @@
 char *get_next_line(int fd);
 {
 	static char		*lectur;
-	int				bytes;
 	char			*bytes_read;
-	
-	read_line(lectur, fd);
-
-
-
-	putstr("ORG: HOLA %d", 42);
-
+	char			*line;
+	bytes_read = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	line = read_line(lectur, fd, bytes_read);
+	lectur = set_lectur(line);   
 
 // while(mientras fd exista)
 // tengo que ir leyendo linea por linea, ir aplicando calloc a cada linea para tener el espacio justo para escribirla y que no sobre espacio de memoria

@@ -6,13 +6,13 @@
 /*   By: joanavar <joanavar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:11:13 by joanavar          #+#    #+#             */
-/*   Updated: 2024/02/15 19:10:04 by joanavar         ###   ########.fr       */
+/*   Updated: 2024/02/15 20:49:57 by joanavar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
 	int i;
 
@@ -61,4 +61,32 @@ char	*ft_strchar(const char *str, char c)
 		i++;
 	}
 	return (NULL);
+}
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*str;
+	size_t	lenchar;
+	size_t	j;
+	size_t	i;
+
+	i = start;
+	j = 0;
+	if (!s || start > ft_strlen(s))
+		return (ft_strdup(""));
+	lenchar = ft_strlen(s);
+	if (lenchar - start <= len)
+		str = malloc((lenchar - start) + 1);
+	else
+		str = malloc(len + 1);
+	if (str != NULL)
+	{
+		while (j < len && s[i] != '\0')
+		{
+			str[j] = s[i];
+			i++;
+			j++;
+		}
+		str[j] = '\0';
+	}
+	return (str);
 }
