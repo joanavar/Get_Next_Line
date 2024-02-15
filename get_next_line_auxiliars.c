@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_auxiliars.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joanavar <joanavar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/13 14:52:13 by joanavar          #+#    #+#             */
-/*   Updated: 2024/02/15 18:34:14 by joanavar         ###   ########.fr       */
+/*   Created: 2024/02/15 18:56:55 by joanavar          #+#    #+#             */
+/*   Updated: 2024/02/15 19:10:01 by joanavar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_GET_NEXT_LINE_H
-#  define FT_GET_NEXT_LINE_H
-#ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#include "get_next_line.h"
 
-# include <unistd.h>
-# include <stdio.h>
-# include <limits.h>
+char	*read_line(char *lectur, int fd)
+{
+	int		bytes;
+	char	*bytes_read;
 
-char *get_next_line(int fd);
-
-#endif
-
+	bytes = 23;
+	while (bytes > 0)
+	{
+		bytes = read(fd, bytes_read, BUFFER_SIZE);
+		bytes_read[bytes] = '\0';
+		lectur = ft_concatener(lectur, bytes_read);
+		if (ft_strchar(bytes_read, '\n');
+			break;
+	}
+	return (lectur);
