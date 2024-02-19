@@ -6,7 +6,7 @@
 /*   By: joanavar <joanavar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:11:13 by joanavar          #+#    #+#             */
-/*   Updated: 2024/02/15 20:49:57 by joanavar         ###   ########.fr       */
+/*   Updated: 2024/02/19 21:39:15 by joanavar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *str)
 	int i;
 
 	i = 0;
+	if (!str)
+		return (NULL);
 	while  (str[i])
 		i++;
 	return (i);
@@ -29,6 +31,8 @@ char	*ft_concatener(char const *s1, char const *s2)
 
 	i = 0;
 	j = 0;
+	if (!(s1 || s2))
+		return (NULL);
 	str = malloc((ft_strlen(s1) + ft_strlen(s2)) + 1);
 	if (!str)
 		return (NULL);
@@ -54,6 +58,8 @@ char	*ft_strchar(const char *str, char c)
 	int i;
 
 	i = 0;
+	if (!str)
+		return (NULL);
 	while (str[i])
 	{
 		if (str[i] == c)

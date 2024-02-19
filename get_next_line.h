@@ -6,7 +6,7 @@
 /*   By: joanavar <joanavar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:52:13 by joanavar          #+#    #+#             */
-/*   Updated: 2024/02/15 21:23:02 by joanavar         ###   ########.fr       */
+/*   Updated: 2024/02/19 21:39:13 by joanavar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	*ft_concatener(char const *s1, char const *s2);
 char	*ft_strchar(const char *str, char c);
 char	*ft_substring(char const *s, unsigned int start, size_t len);
 char	*set_lectur(char *lectur);
+char	*double_free(char **ptr1, char **ptr2);
 
 #endif
 
