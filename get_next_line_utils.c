@@ -6,7 +6,7 @@
 /*   By: joanavar <joanavar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:11:13 by joanavar          #+#    #+#             */
-/*   Updated: 2024/02/19 21:39:15 by joanavar         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:44:51 by joanavar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ size_t	ft_strlen(const char *str)
 
 	i = 0;
 	if (!str)
-		return (NULL);
+		return (0);
 	while  (str[i])
 		i++;
 	return (i);
+}
 
 char	*ft_concatener(char const *s1, char const *s2)
 {
@@ -63,12 +64,12 @@ char	*ft_strchar(const char *str, char c)
 	while (str[i])
 	{
 		if (str[i] == c)
-			return (&str[i])
+			return ((char *)&str[i]);
 		i++;
 	}
 	return (NULL);
 }
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substring(char const *s, unsigned int start, size_t len)
 {
 	char	*str;
 	size_t	lenchar;
@@ -95,4 +96,23 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		str[j] = '\0';
 	}
 	return (str);
+}
+char	*ft_strdup(const char *s1)
+{
+	size_t	len;
+	char	*dst;
+	int		i;
+
+	i = 0;
+	len = ft_strlen(s1) + 1;
+	dst = malloc(sizeof(char) * len);
+	if (!dst)
+		return (NULL);
+	while (s1[i])
+	{
+		dst[i] = s1[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
 }

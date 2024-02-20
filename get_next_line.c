@@ -6,7 +6,7 @@
 /*   By: joanavar <joanavar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:49:47 by joanavar          #+#    #+#             */
-/*   Updated: 2024/02/19 21:39:19 by joanavar         ###   ########.fr       */
+/*   Updated: 2024/02/20 19:59:41 by joanavar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@ char	*read_line(char	*lectur, int fd, char *bytes_read)
 	bytes = 23;
 	while (bytes > 0)
 	{
+		bytes_read = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+		bytes_read[0] = '\0';
 		bytes = read(fd, bytes_read, BUFFER_SIZE);
 		if (bytes == -1)
 			return (NULL);
 		bytes_read[bytes] = '\0';
 		lectur = ft_concatener(lectur, bytes_read);
-		if (ft_strchar(bytes_read, '\n')
-			break;
+		if (ft_strchar(bytes_read, '\n'))
+				break;
 	}
 	return (lectur);
 }
@@ -42,8 +44,8 @@ char	*set_lectur(char *lectur)
 	lectur[i + 1] = 0;
 	return (new_lectur);
 }
-
-char	*double_free(char **ptr1, char **ptr2)
+/*
+char	*double_free(char *ptr1, char *ptr2)
 {
 	if (ptr1 || *ptr1)
 	{
@@ -58,20 +60,23 @@ char	*double_free(char **ptr1, char **ptr2)
 	return (NULL);
 
 }
-
-char *get_next_line(int fd);
+*/
+char *get_next_line(int fd)
 {
 	static char		*lectur;
 	char			*bytes_read;
 	char			*line;
 	if (!fd || BUFFER_SIZE > 0)
 		return (NULL);
-
+	printf("hola");
 	bytes_read = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	line = read_line(lectur, fd, bytes_read);
-	if (!line)
-		return (double_free
-	lectur = set_lectur(line);   
+	//if (!line)
+	//	return (double_free(lectur, bytes_read))
+	lectur = set_lectur(line);
+	printf("%s", lectur);	
+return (lectur);
+}
 
 // while(mientras fd exista)
 // tengo que ir leyendo linea por linea, ir aplicando calloc a cada linea para tener el espacio justo para escribirla y que no sobre espacio de memoria
@@ -79,18 +84,16 @@ char *get_next_line(int fd);
 //			count++;
 //		tmp = calloc(sizeof(char) * BUFFER_SIZE + 1)
 
-	if (!fd)
-		return (NULL);
-
-
-
-
-
 int main(void)
 {
-    static int contador = 0;
-    contador++;
-    printf("El valor del contador es: %d\n", contador);
-	return (0);
-}
+    int fd = open("tester.txt", O_RDONLY);
+	char *line;
+	line = get_next_line(fd);
+	while (line)
+	{
+		printf("%s", line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+}	
 
