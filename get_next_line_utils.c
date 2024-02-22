@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joanavar <joanavar@student.42barcel>       +#+  +:+       +#+        */
+/*   By: joanavar <joanavar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:11:13 by joanavar          #+#    #+#             */
-/*   Updated: 2024/02/20 18:44:51 by joanavar         ###   ########.fr       */
+/*   Updated: 2024/02/22 20:47:46 by joanavar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@ char	*ft_concatener(char const *s1, char const *s2)
 
 	i = 0;
 	j = 0;
-	if (!(s1 || s2))
+	if (!s1 && !s2)
 		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
 	str = malloc((ft_strlen(s1) + ft_strlen(s2)) + 1);
 	if (!str)
 		return (NULL);
