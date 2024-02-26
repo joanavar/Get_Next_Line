@@ -6,7 +6,7 @@
 /*   By: joanavar <joanavar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:52:13 by joanavar          #+#    #+#             */
-/*   Updated: 2024/02/22 20:20:42 by joanavar         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:40:30 by joanavar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@
 # include <fcntl.h>
 
 char	*get_next_line(int fd);
-size_t	ft_strlen(const char *str);
-char	*ft_concatener(char const *s1, char const *s2);
-char	*ft_strchar(const char *str, char c);
-char	*ft_substring(char const *s, unsigned int start, size_t len);
-char	*ft_strdup(const char *s1);
+size_t	ft_strlen(char *str);
+char	*ft_concatener(char *s1, char *s2);
+char	*ft_strchar(char *str, char c);
+char	*ft_substring(char *s, unsigned int start, size_t len);
+char	*ft_strdup(char *s1);
 
 #endif
 
