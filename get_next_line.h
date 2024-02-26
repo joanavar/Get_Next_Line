@@ -6,12 +6,12 @@
 /*   By: joanavar <joanavar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:52:13 by joanavar          #+#    #+#             */
-/*   Updated: 2024/02/26 16:40:30 by joanavar         ###   ########.fr       */
+/*   Updated: 2024/02/26 18:38:00 by joanavar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_GET_NEXT_LINE_H
-#  define FT_GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -31,4 +31,3 @@ char	*ft_substring(char *s, unsigned int start, size_t len);
 char	*ft_strdup(char *s1);
 
 #endif
-

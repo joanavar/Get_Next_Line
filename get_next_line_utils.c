@@ -6,7 +6,7 @@
 /*   By: joanavar <joanavar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:11:13 by joanavar          #+#    #+#             */
-/*   Updated: 2024/02/26 18:29:02 by joanavar         ###   ########.fr       */
+/*   Updated: 2024/02/26 19:52:30 by joanavar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 size_t	ft_strlen(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while  (str[i])
+	while (str[i] != '\0')
 		i++;
 	return (i);
 }
@@ -30,12 +30,12 @@ char	*ft_concatener(char *s1, char *s2)
 
 	i = 0;
 	j = 0;
-	str = malloc(sizeof(char)  * (ft_strlen(s1) + ft_strlen(s2)) + 1);
+	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
 	if (!str)
-		return (NULL);
+		return (free(s1), NULL);
 	while (s1[i] != '\0')
 	{
-		str[j] = s1[i];	
+		str[j] = s1[i];
 		i++;
 		j++;
 	}
@@ -53,12 +53,12 @@ char	*ft_concatener(char *s1, char *s2)
 
 char	*ft_strchar(char *str, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!str)
 		return (NULL);
-	while (str[i])
+	while (str[i] != '\0')
 	{
 		if (str[i] == c)
 			return ((char *)&str[i]);
@@ -66,6 +66,7 @@ char	*ft_strchar(char *str, char c)
 	}
 	return (NULL);
 }
+
 char	*ft_substring(char *s, unsigned int start, size_t len)
 {
 	char	*str;
@@ -75,7 +76,8 @@ char	*ft_substring(char *s, unsigned int start, size_t len)
 	i = start;
 	j = 0;
 	if (!s)
-		return (ft_strdup(""));
+		return (NULL);
+	str = NULL;
 	str = malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
@@ -88,6 +90,7 @@ char	*ft_substring(char *s, unsigned int start, size_t len)
 	str[j] = '\0';
 	return (str);
 }
+
 char	*ft_strdup(char *s1)
 {
 	size_t	len;
@@ -99,7 +102,7 @@ char	*ft_strdup(char *s1)
 	dst = malloc(sizeof(char) * len);
 	if (!dst)
 		return (NULL);
-	while (s1[i])
+	while (s1[i] != '\0')
 	{
 		dst[i] = s1[i];
 		i++;

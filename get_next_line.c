@@ -6,7 +6,7 @@
 /*   By: joanavar <joanavar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:49:47 by joanavar          #+#    #+#             */
-/*   Updated: 2024/02/26 18:29:05 by joanavar         ###   ########.fr       */
+/*   Updated: 2024/02/26 19:52:27 by joanavar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 static char	*double_free(char *ptr1, char *ptr2)
 {
-	if (ptr1)
+	if (ptr1 != NULL)
+	{
 		free(ptr1);
-	if (ptr2)
+		ptr1 = NULL;
+	}
+	if (ptr2 != NULL)
+	{
 		free(ptr2);
+		ptr2 = NULL;
+	}
 	return (NULL);
 }
 
@@ -29,7 +35,7 @@ static char	*read_line(char	*lectur, int fd)
 	bytes = 23;
 	bytes_read = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!bytes_read)
-		return (NULL);
+		return (double_free(lectur, NULL));
 	while (bytes > 0)
 	{
 		bytes = read(fd, bytes_read, BUFFER_SIZE);
@@ -54,9 +60,14 @@ static char	*set_line(char *lectur)
 	i = 0;
 	while (lectur[i] != '\n' && lectur[i] != '\0')
 		i++;
-	new_line = ft_substring(lectur, 0, i + 1);
+	if (lectur[i] == '\n')
+		new_line = ft_substring(lectur, 0, i + 1);
+	else
+		new_line = ft_substring(lectur, 0, i);
 	if (!new_line)
 		return (NULL);
+	if (new_line[0] == '\0')
+		return (double_free(new_line, NULL));
 	return (new_line);
 }
 
@@ -74,6 +85,7 @@ static char	*new_lectur(char *lectur, char *line)
 	free(lectur);
 	return (new_buf);
 }
+
 char	*get_next_line(int fd)
 {
 	static char		*lectur;
@@ -91,23 +103,21 @@ char	*get_next_line(int fd)
 	}
 	lectur = read_line(lectur, fd);
 	if (!lectur)
-		return (double_free(lectur, NULL));
+		return (NULL);
 	line = set_line(lectur);
-	if (!line || line[0] == '\0')
-		return (double_free(line, lectur));
+	if (!line)
+	{
+		if (lectur != NULL)
+			free(lectur);
+		return (lectur = NULL, NULL);
+	}
 	lectur = new_lectur(lectur, line);
 	return (line);
 }
-
-// while(mientras fd exista)
-// tengo que ir leyendo linea por linea, ir aplicando calloc a cada linea para tener el espacio justo para escribirla y que no sobre espacio de memoria
-//		while(str[i] != '\n' || str[i] != '\0')
-//			count++;
-//		tmp = calloc(sizeof(char) * BUFFER_SIZE + 1)
-
-/*int main(void)
+/*
+int main(void)
 {
-    int fd = open("si.txt", O_RDONLY);
+    int fd = open("1char.txt", O_RDONLY);
  	int i = 0;
  	char *si = get_next_line(fd);
  	while (si)
