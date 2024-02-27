@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joanavar <joanavar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joanavar <joanavar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/13 14:49:47 by joanavar          #+#    #+#             */
-/*   Updated: 2024/02/27 19:52:07 by joanavar         ###   ########.fr       */
+/*   Created: 2024/02/27 19:00:52 by joanavar          #+#    #+#             */
+/*   Updated: 2024/02/27 20:16:42 by joanavar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,20 @@ static char	*read_line(char	*lectur, int fd)
 {
 	int		bytes;
 	char	*bytes_read;
+	char	*tmp;
 
 	bytes = 23;
 	bytes_read = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!bytes_read)
-		return (double_free(lectur, NULL));
+		return (double_free(&lectur[fd], NULL));
 	while (bytes > 0)
 	{
 		bytes = read(fd, bytes_read, BUFFER_SIZE);
 		if (bytes == -1)
 			return (double_free(lectur, bytes_read));
 		bytes_read[bytes] = '\0';
-		lectur = ft_concatener(lectur, bytes_read);
+		tmp = lectur;
+		lectur = ft_concatener(tmp, bytes_read);
 		if (!lectur || lectur[0] == '\0')
 			return (double_free(bytes_read, lectur));
 		if (ft_strchar(bytes_read, '\n'))
@@ -61,7 +63,7 @@ static char	*set_line(char *lectur)
 	while (lectur[i] != '\n' && lectur[i] != '\0')
 		i++;
 	if (lectur[i] == '\n')
-		new_line = ft_substring(lectur, 0, i + 1);
+		new_line = ft_substring(lectur,  0, i + 1);
 	else
 		new_line = ft_substring(lectur, 0, i);
 	if (!new_line)
@@ -88,30 +90,30 @@ static char	*new_lectur(char *lectur, char *line)
 
 char	*get_next_line(int fd)
 {
-	static char		*lectur;
+	static char		*lectur[10240];
 	char			*line;
 
 	line = NULL;
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
-	if (!lectur)
+	if (!lectur[fd])
 	{
-		lectur = malloc(sizeof(char) * 1);
-		if (!lectur)
+		lectur[fd] = malloc(sizeof(char) * 1);
+		if (!lectur[fd])
 			return (NULL);
-		lectur[0] = '\0';
+		lectur[fd][0] = '\0';
 	}
-	lectur = read_line(lectur, fd);
-	if (!lectur)
+	lectur[fd] = read_line(lectur[fd], fd);
+	if (!lectur[fd])
 		return (NULL);
-	line = set_line(lectur);
+	line = set_line(lectur[fd]);
 	if (!line)
 	{
-		if (lectur != NULL)
-			free(lectur);
-		return (lectur = NULL, NULL);
+		if (lectur[fd] != NULL)
+			free(lectur[fd]);
+		return (lectur[fd] = NULL, NULL);
 	}
-	lectur = new_lectur(lectur, line);
+	lectur[fd] = new_lectur(lectur[fd], line);
 	return (line);
 }
 /*
