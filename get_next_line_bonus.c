@@ -6,7 +6,7 @@
 /*   By: joanavar <joanavar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 19:00:52 by joanavar          #+#    #+#             */
-/*   Updated: 2024/02/27 20:16:42 by joanavar         ###   ########.fr       */
+/*   Updated: 2024/02/29 19:34:08 by joanavar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*read_line(char	*lectur, int fd)
 	bytes = 23;
 	bytes_read = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!bytes_read)
-		return (double_free(&lectur[fd], NULL));
+		return (double_free(lectur, NULL));
 	while (bytes > 0)
 	{
 		bytes = read(fd, bytes_read, BUFFER_SIZE);
